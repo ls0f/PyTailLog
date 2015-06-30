@@ -1,0 +1,115 @@
+<html>
+<head>
+	<title>PyTailLog</title>
+
+	<meta http-equiv="X-UA-Compatible" content="IE=10;IE=9;IE=8;IE=7;IE=EDGE">
+	<meta charset="utf-8">
+	<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+	<style>
+		.rec .send {
+			display:block;
+			white-space: nowrap;
+			text-overflow:ellipsis;
+			overflow:hidden;
+			width:800px;
+		}
+		.rec {
+			color: #AA3333;
+		}
+		.send {
+			color: #33AA33;
+		}
+		.eventName {
+			font-weight: bold;
+		}
+		.timeHeader {
+			display: inline-block;
+			width: 222px;
+		}
+		.right {
+			float: right;
+		}
+		.site-footer {
+			position: relative;
+			padding-top: 40px;
+			padding-bottom: 40px;
+			font-size: 12px;
+			line-height: 1.5;
+			color: #777;
+		}
+		.site-footer-links {
+			margin: 0;
+			list-style: none;
+		}
+		.site-footer-links li {
+			display: inline-block;
+		}
+		.debug .content .json {
+			font-size: 12px;
+		}
+		.debug {
+			color: #888888;
+		}
+		.content {
+			color: #333333;
+		}
+		.line {
+			padding: 3px;
+			margin: 0px;
+		}
+		.json {
+			color: #000088;
+		}
+		libal {
+			display: block;
+		}
+	</style>
+</head>
+<body>
+PyTailLog:
+<br /><ul id="incomingChatMessages"></ul>
+<libal>自动滚屏<input type="checkbox" id="screanScroll" value="1" checked="checked"></libal>
+<script type="text/javascript">
+
+
+	var showData = function(data) {
+		$('#incomingChatMessages').append($('<li></li>').html(data));
+		startScreenScroll();
+	}
+	//////  滚屏
+	var currentpos, timer;
+	function sc() {
+		clearInterval(timer);
+		timer = null;
+	}
+	function scrollwindow() {
+		var currentpos = $(document).scrollTop();
+		window.scroll(0, currentpos + 1);
+		if(currentpos == $(document).scrollTop())  //判断是否滚动到网页最下端,是则停止循环
+			sc();
+	}
+	function startScreenScroll() {
+		if($("#screanScroll").attr("checked") == "checked" && !timer) {
+			timer = setInterval("scrollwindow()", 3);
+		}
+	}
+</script>
+<script>
+       if ("MozWebSocket" in window) {
+            WebSocket = MozWebSocket;
+        }
+
+        if (WebSocket) {
+            var ws = new WebSocket("ws://%s/tail/");
+            ws.onopen = function() {};
+            ws.onmessage = function(evt){ showData(evt.data)};
+            ws.onclose = function() { alert("WebSocket lost")};
+        } else {
+            alert("WebSocket not supported");
+        }
+</script>
+<div class="site-footer">
+</div>
+</body>
+
+</html>
