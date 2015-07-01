@@ -7,19 +7,6 @@
 	<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 	<link rel="stylesheet" type="text/css" href="/static/css/style.css" />
 	<style>
-	* {
-	    box-sizing: border-box;
-	    margin: 0;
-	    padding: 0;
-	}
-	html, body {
-	    background: #000 none repeat scroll 0 0;
-	    height: 100%;
-	    max-height: 100%;
-	    max-width: 100%;
-	    overflow: hidden;
-	    width: 100%;
-	}
 		.rec .send {
 			display:block;
 			white-space: nowrap;
@@ -80,49 +67,55 @@
 	</style>
 </head>
 <body>
-PyTailLog:
-<br /><ul id="incomingChatMessages"></ul>
-<libal>自动滚屏<input type="checkbox" id="screanScroll" value="1" checked="checked"></libal>
-<script type="text/javascript">
+<div class="wrap">
+	<h1 id="title">PyTailLog:</h1>
+	<ul id="incomingChatMessages"></ul>
+	<div class="ulwrap">
+		<libal>自动滚屏&nbsp;&nbsp;<input type="checkbox" id="screanScroll" value="1" checked="checked"></libal>
+	</div>
 
 
-	var showData = function(data) {
-		$('#incomingChatMessages').append($('<li></li>').html(data));
-		startScreenScroll();
-	}
-	//////  滚屏
-	var currentpos, timer;
-	function sc() {
-		clearInterval(timer);
-		timer = null;
-	}
-	function scrollwindow() {
-		var currentpos = $(document).scrollTop();
-		window.scroll(0, currentpos + 1);
-		if(currentpos == $(document).scrollTop())  //判断是否滚动到网页最下端,是则停止循环
-			sc();
-	}
-	function startScreenScroll() {
-		if($("#screanScroll").attr("checked") == "checked" && !timer) {
-			timer = setInterval("scrollwindow()", 3);
+	<script type="text/javascript">
+
+
+		var showData = function(data) {
+			$('#incomingChatMessages').append($('<li></li>').html(data));
+			startScreenScroll();
 		}
-	}
-</script>
-<script>
-       if ("MozWebSocket" in window) {
-            WebSocket = MozWebSocket;
-        }
+		//////  滚屏
+		var currentpos, timer;
+		function sc() {
+			clearInterval(timer);
+			timer = null;
+		}
+		function scrollwindow() {
+			var currentpos = $(document).scrollTop();
+			window.scroll(0, currentpos + 1);
+			if(currentpos == $(document).scrollTop())  //判断是否滚动到网页最下端,是则停止循环
+				sc();
+		}
+		function startScreenScroll() {
+			if($("#screanScroll").attr("checked") == "checked" && !timer) {
+				timer = setInterval("scrollwindow()", 3);
+			}
+		}
+	</script>
+	<script>
+	       if ("MozWebSocket" in window) {
+	            WebSocket = MozWebSocket;
+	        }
 
-        if (WebSocket) {
-            var ws = new WebSocket("ws://{{host}}/tail/");
-            ws.onopen = function() {};
-            ws.onmessage = function(evt){ showData(evt.data)};
-            ws.onclose = function() { alert("WebSocket lost")};
-        } else {
-            alert("WebSocket not supported");
-        }
-</script>
-<div class="site-footer">
+	        if (WebSocket) {
+	            var ws = new WebSocket("ws://{{host}}/tail/");
+	            ws.onopen = function() {};
+	            ws.onmessage = function(evt){ showData(evt.data)};
+	            ws.onclose = function() { alert("WebSocket lost")};
+	        } else {
+	            alert("WebSocket not supported");
+	        }
+	</script>
+	<div class="site-footer">
+	</div>
 </div>
 </body>
 

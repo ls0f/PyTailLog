@@ -10,10 +10,11 @@ html, body {
     max-width: 100%;
     overflow: hidden;
     width: 100%;
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 20px;
 }
-
-
-#active {
+.wrap{position: relative;}
+/*#active {
     color: #fff;
     font-family: Verdana,Arial,Helvetica,sans-serif;
     font-size: 16px;
@@ -22,4 +23,30 @@ html, body {
     position: fixed;
     top: 50px;
     z-index: 10;
+}*/
+#title{
+    color: #fff;
+    left: 10px;
+    position: fixed;
+    top:10px;
 }
+.ulwrap{
+    position: fixed;
+    left: 10px;
+    top:80px;
+    color: #fff;
+    z-index: 10;
+}
+#incomingChatMessages{
+    color: #666;
+    font-family: Lucida Grande,Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    padding: 3px;
+    position: fixed;
+    right: 0;
+    text-align: right;
+    top: 0;
+    z-index: 30;
+}
+
+
