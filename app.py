@@ -7,6 +7,7 @@ import tornado.ioloop
 import tornado.web
 import sys
 import select
+import os
 
 PORT = int(sys.argv[1])
 LISTENERS = []
@@ -44,17 +45,19 @@ class TailHandler(tornado.websocket.WebSocketHandler):
 class IndexHandler(tornado.web.RequestHandler):
 
     def get(self):
+	self.render('index.html', host=self.request.host)
+ 
+site_root = os.path.dirname(__file__)
+settings = {
+    "static_path":os.path.join(site_root,'static'),
+    "template_path":os.path.join(site_root,'templates'),
+    "debug":True,
+    }
 
-        with open("test.html") as f:
-            html = f.read()
-            html = html % self.request.host
-            self.write(html)
- 
- 
 application = tornado.web.Application([
     (r'/tail/', TailHandler),
     (r'/', IndexHandler),
-])
+], **settings)
  
 if __name__ == '__main__':
     http_server = tornado.httpserver.HTTPServer(application)
