@@ -41,18 +41,29 @@
 		}
 	</script>
 	<script>
-	       if ("MozWebSocket" in window) {
-	            WebSocket = MozWebSocket;
-	        }
 
-	        if (WebSocket) {
-	            var ws = new WebSocket("ws://{{host}}/tail/");
-	            ws.onopen = function() {};
-	            ws.onmessage = function(evt){ showData(evt.data)};
-	            ws.onclose = function() { alert("WebSocket lost")};
-	        } else {
-	            alert("WebSocket not supported");
-	        }
+        function startWebSocket() {
+
+            if ("MozWebSocket" in window) {
+                WebSocket = MozWebSocket;
+            }
+
+            if (WebSocket) {
+                var ws = new WebSocket("ws://{{host}}/tail/");
+                ws.onopen = function () {
+                };
+                ws.onmessage = function (evt) {
+                    showData(evt.data)
+                };
+                ws.onclose = function () {
+                    alert("WebSocket lost")
+                };
+            } else {
+                alert("WebSocket not supported");
+            }
+        }
+
+        startWebSocket();
 	</script>
 	<div class="site-footer">
 	</div>
