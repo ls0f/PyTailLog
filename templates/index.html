@@ -6,72 +6,13 @@
 	<meta charset="utf-8">
 	<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 	<link rel="stylesheet" type="text/css" href="/static/css/style.css" />
-	<style>
-		.rec .send {
-			display:block;
-			white-space: nowrap;
-			text-overflow:ellipsis;
-			overflow:hidden;
-			width:800px;
-		}
-		.rec {
-			color: #AA3333;
-		}
-		.send {
-			color: #33AA33;
-		}
-		.eventName {
-			font-weight: bold;
-		}
-		.timeHeader {
-			display: inline-block;
-			width: 222px;
-		}
-		.right {
-			float: right;
-		}
-		.site-footer {
-			position: relative;
-			padding-top: 40px;
-			padding-bottom: 40px;
-			font-size: 12px;
-			line-height: 1.5;
-			color: #777;
-		}
-		.site-footer-links {
-			margin: 0;
-			list-style: none;
-		}
-		.site-footer-links li {
-			display: inline-block;
-		}
-		.debug .content .json {
-			font-size: 12px;
-		}
-		.debug {
-			color: #888888;
-		}
-		.content {
-			color: #333333;
-		}
-		.line {
-			padding: 3px;
-			margin: 0px;
-		}
-		.json {
-			color: #000088;
-		}
-		libal {
-			display: block;
-		}
-	</style>
 </head>
 <body>
 <div class="wrap">
 	<h1 id="title">PyTailLog:</h1>
 	<ul id="incomingChatMessages"></ul>
 	<div class="ulwrap">
-		<libal>自动滚屏&nbsp;&nbsp;<input type="checkbox" id="screanScroll" value="1" checked="checked"></libal>
+		<libal>自动滚屏&nbsp;&nbsp;<input type="checkbox" id="screanScroll"></libal>
 	</div>
 
 
@@ -83,21 +24,19 @@
 			$('#incomingChatMessages').append($('<li></li>').html(data));
 			startScreenScroll();
 		}
-		//////  滚屏
-		var currentpos, timer;
-		function sc() {
-			clearInterval(timer);
-			timer = null;
-		}
+		// 滚屏
 		function scrollwindow() {
-			var currentpos = $(document).scrollTop();
-			window.scroll(0, currentpos + 1);
-			if(currentpos == $(document).scrollTop())  //判断是否滚动到网页最下端,是则停止循环
-				sc();
+			while(1){
+				var currentpos = $(document).scrollTop();
+				if ( currentpos + $(window).height() >= $(document).height()){
+					return false;
+				}
+				window.scroll(0, currentpos + 1);
+			}
 		}
 		function startScreenScroll() {
-			if($("#screanScroll").attr("checked") == "checked" && !timer) {
-				timer = setInterval("scrollwindow()", 3);
+			if( $("#screanScroll").prop("checked") ) {
+				scrollwindow();
 			}
 		}
 	</script>
