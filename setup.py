@@ -20,10 +20,12 @@ setup(
     install_requires=[
         "tornado",
     ],
-    classifiers=[
-        "License :: OSI Approved :: BSD License",
-        "Operating System :: Unix",
-        "Programming Language :: Python",
+    scripts=['/usr/local/bin/pytaillog'],
+    classifiers = [
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python',
+        'Intended Audience :: Developers',
+        'Operating System :: OS Independent',
     ],
     zip_safe=False,
 )
