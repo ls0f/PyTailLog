@@ -26,14 +26,14 @@ def read_file():
 
 class TailHandler(tornado.websocket.WebSocketHandler):
     def open(self):
-        print "WebSocket open"
+        print("WebSocket open")
         LISTENERS.append(self)
  
     def on_message(self, message):
         pass
  
     def on_close(self):
-        print "WebSocket close"
+        print("WebSocket close")
         try:
             LISTENERS.remove(self)
         except:
