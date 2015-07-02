@@ -38,5 +38,10 @@ ul li{list-style: none;}
     top: 0;
     z-index: 30;
 }
+.pic_wrap{
+    right: 10px;
+    position: fixed;
+    top:10px;
+}
 
 
