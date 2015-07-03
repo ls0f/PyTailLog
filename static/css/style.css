@@ -43,4 +43,21 @@ ul li{list-style: none;}
     position: fixed;
     top:10px;
 }
+.search_wrap{
+    left: 250px;
+    position: fixed;
+    top:28px;
+}
+.search_wrap .txt {
+  position: fixed;
+  top: 26px;
+  left: 400px;
+  z-index: 100;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid #222;
+  padding: 6px;
+  font-family: Consolas;
+  font-size: 14px;
+  color: yellow;
+}
 
