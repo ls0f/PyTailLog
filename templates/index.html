@@ -18,7 +18,7 @@
 		<span class="pic"><a href="https://github.com/lovedboy/PyTailLog" target="_blank"><img src="/static/images/GitHub-Mark-Light-64px.png"></a></span>
 	</div>
 	<div class="search_wrap">
-		<input type="text" class="txt J_search" placeholder="输入过滤条件" />
+		<input type="text" class="txt J_search" placeholder="filter by regexp" id="filter" />
 	</div>
 
 
@@ -26,6 +26,13 @@
 
 
 		var showData = function(data) {
+			var rxp = $("#filter").val()
+			if (rxp){
+				var re = new RegExp(rxp, "gi");
+				if (!re.test(data)){
+					return false;
+				}
+			}
 			console.log(data);
 			$('#incomingChatMessages').append($('<li></li>').html(data));
 			startScreenScroll();
