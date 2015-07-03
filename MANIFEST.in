@@ -1,0 +1,2 @@
+recursive-include pytaillog/templates *
+recursive-include pytaillog/static *

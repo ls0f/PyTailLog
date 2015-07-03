@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup,find_packages
 
 
 PACKAGE = "pytaillog"
@@ -7,7 +7,7 @@ DESCRIPTION = "dispaly log in a browser"
 AUTHOR = "lovedboy"
 AUTHOR_EMAIL = "lovedboy.tk@qq.com"
 URL = "https://github.com/lovedboy/PyTailLog"
-VERSION = __import__(PACKAGE).__version__
+VERSION = '0.1'
 
 setup(
     name=NAME,
@@ -20,7 +20,9 @@ setup(
     install_requires=[
         "tornado",
     ],
-    scripts=['/usr/local/bin/pytaillog'],
+    scripts=['bin/pytaillog'],
+    include_package_data = True,
+    packages = find_packages(),
     classifiers = [
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
