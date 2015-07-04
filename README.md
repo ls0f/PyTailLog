@@ -12,6 +12,8 @@ PyTailLog is a tool that display log in a browser
 
 `tail -f logfile | pytaillog`
 
+It will bind address 0.0.0.0 and port 8080, open the web browser and type the http://$ip:$port
+
 for the help:
 
 `pytaillog -h`
