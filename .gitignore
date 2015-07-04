@@ -12,3 +12,5 @@
 .pydevproject
 .settings/*
 .idea/*
+dist/*
+*.egg/*
