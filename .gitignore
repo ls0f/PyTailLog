@@ -13,4 +13,4 @@
 .settings/*
 .idea/*
 dist/*
-*.egg/*
+pytaillog.egg-info/*
