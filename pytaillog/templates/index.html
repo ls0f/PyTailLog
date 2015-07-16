@@ -75,7 +75,21 @@
             }
         }
 
-        startWebSocket();
+        function needAuth(){
+            var password = prompt("请输入密码", "");
+            if (password){
+                document.cookie= "auth=" + password + ";";
+                location.reload();
+            }
+
+        }
+        {% if auth %}
+            startWebSocket();
+
+         {% else %}
+
+            needAuth()
+         {% end %}
 	</script>
 	<div class="site-footer">
 	</div>

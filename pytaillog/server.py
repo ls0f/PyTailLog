@@ -26,6 +26,8 @@ def read_file():
 
 class TailHandler(tornado.websocket.WebSocketHandler):
     def open(self):
+        if self.settings['auth'] and self.get_cookie("auth") != self.settings['auth']:
+            return
         print("WebSocket open")
         LISTENERS.append(self)
  
@@ -42,7 +44,11 @@ class TailHandler(tornado.websocket.WebSocketHandler):
 class IndexHandler(tornado.web.RequestHandler):
 
     def get(self):
-        self.render('index.html', host=self.request.host)
+        if self.settings['auth'] and self.get_cookie("auth") != self.settings['auth']:
+            auth = False
+        else:
+            auth = True
+        self.render('index.html', host=self.request.host, auth=auth)
  
 site_root = os.path.dirname(__file__)
 settings = {
@@ -51,12 +57,14 @@ settings = {
     "debug":False,
     }
 
-application = tornado.web.Application([
-    (r'/tail/', TailHandler),
-    (r'/', IndexHandler),
-], **settings)
 
-def server(host, port):
+def server(host, port, auth):
+
+    settings['auth'] = auth
+    application = tornado.web.Application([
+                                              (r'/tail/', TailHandler),
+                                              (r'/', IndexHandler),
+                                              ], **settings)
     http_server = tornado.httpserver.HTTPServer(application)
     http_server.listen(port=port, address=host)
 
@@ -73,11 +81,13 @@ def main():
     parse = OptionParser(version='pytaillog 0.1')
     parse.add_option('-H','--host', help="listen host, default 0.0.0.0",default='0.0.0.0')
     parse.add_option('-P','--port', help="listen port, default 8080",default=8080, type="int")
+    parse.add_option('-A','--auth', help="auth password  default None",default=None)
     (options,args) = parse.parse_args()
 
     host = options.host
     port = options.port
-    server(host, port)
+    auth = options.auth
+    server(host, port, auth)
 
 if __name__ == '__main__':
 
