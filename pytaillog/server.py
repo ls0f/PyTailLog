@@ -8,9 +8,16 @@ import tornado.web
 import sys
 import select
 import os
+import signal
 from optparse import OptionParser
 
 LISTENERS = []
+
+def bye(signal, frame):
+    print("\nhello, bye bye...")
+    sys.exit(0)
+
+signal.signal(signal.SIGINT, bye)
 
 def read_file():
 

@@ -7,7 +7,7 @@ DESCRIPTION = "dispaly log in a browser"
 AUTHOR = "lovedboy"
 AUTHOR_EMAIL = "lovedboy.tk@qq.com"
 URL = "https://github.com/lovedboy/PyTailLog"
-VERSION = '0.1'
+VERSION = '0.3'
 
 setup(
     name=NAME,
